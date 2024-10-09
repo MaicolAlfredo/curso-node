@@ -1,0 +1,12 @@
+{
+  "name": "03_npm",
+  "version": "1.0.0",
+  "description": "En este proyecto aprendemos NPM",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Bonsh",
+  "license": "MIT"
+}
