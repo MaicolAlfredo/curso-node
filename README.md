@@ -1,13 +1,130 @@
 # Curso de Node.js JonMircha
 
 Indice
-
+* [1. Bienvenida al curso](#1-bienvenida-al-curso-00000)
+* [2. Qué es Node.js](#2-qué-es-nodejs-00619)
+* [3. Historia y contexto](#3-historia-y-contexto-01400)
+* [4. Características y usos ](#4-características-y-usos-02958)
+* [5. Instalación y Configuración](#5-instalación-y-configuración-05450)
 * [9. Hola Mundo](#9-hola-mundo-13510)
 * [10. JS del navegador VS JS del servidor](#10-js-del-navegador-vs-js-del-servidor-13953)
 * [11. Blocking VS Non Blocking](#11-blocking-vs-non-blocking-14748)
 * [12. Single Thread](#12-single-thread-20704)
 * [13. Event Loop](#13-event-loop-21841)
 * [14. Módulos](#14-módulos-23202)
+
+## 1. Bienvenida al curso (0:00:00)
+
+ Te doy la más cordial bienvenida a mi curso de Node.js. Node.js es el entorno de programación en JavaScript más popular del lado del servidor. Desde su creación en 2009, ha ganado gran popularidad y aceptación, especialmente para desarrollar aplicaciones en tiempo real que requieren una alta interacción o comunicación con otros servicios. Este entorno formalizó el uso de nuestro lenguaje favorito para la web, JavaScript, ya que ahora podemos ejecutarlo tanto en el cliente (navegadores) como en el servidor.
+
+✅
+
+[Indice](#curso-de-nodejs-jonmircha)
+
+## 2. Qué es Node.js (0:06:19)
+Voy a explicarte qué es Node.js, y vamos a aclarar algunos conceptos que pueden confundirse. En la página oficial, vemos que Node.js se define como un entorno de ejecución para JavaScript, construido con V8, el motor de JavaScript de Chrome. Es importante mencionar que Node.js no es un framework, aunque a veces se le confunda como tal. Para entender mejor esta diferencia, comparemos: PHP es un lenguaje de programación, y Laravel es su framework; Python es un lenguaje, y Django o Flask son sus frameworks. Ruby es un lenguaje, y Ruby on Rails es su framework. En el caso de Node.js, JavaScript es el lenguaje y Node.js es un entorno de ejecución, no un framework.
+
+Node.js es un motor de código abierto que permite ejecutar JavaScript en el servidor, mientras que en los navegadores este código se ejecuta en el cliente. Originalmente, JavaScript fue creado en solo 13 días para Netscape Navigator en los años 90, con el objetivo de agregar dinamismo al HTML de las páginas web. A medida que JavaScript fue evolucionando, quedó claro que tenía un potencial más amplio, pero inicialmente estaba limitado a los navegadores, mientras que lenguajes como Java ya ofrecían más capacidades.
+
+La evolución de JavaScript y Node.js nos muestra que, aunque tanto JavaScript como PHP no se diseñaron inicialmente como lenguajes de programación completos, ambos han avanzado enormemente en los últimos años, corrigiendo muchas de sus limitaciones originales. JavaScript fue pensado principalmente para el lado del cliente, y su ejecución en los navegadores depende de un motor que cada navegador incorpora, como V8 en Chrome. En 2009, un programador llamado Ryan Dahl tomó este motor V8 de código abierto y creó Node.js, permitiéndonos ejecutar JavaScript en el servidor.
+
+Es importante diferenciar entre Node.js y frameworks específicos para desarrollo web basados en Node.js, como Express, Koa, o Nest.js. Node.js es un entorno de ejecución que habilita JavaScript en el servidor, mientras que estos frameworks se construyen sobre Node.js para facilitar el desarrollo web.
+
+Otros entornos de ejecución para JavaScript del lado del servidor incluyen Deno, creado también por Ryan Dahl en 2018 como una evolución de Node.js. Aunque tiene mejoras significativas, Deno no ha logrado la misma popularidad en el ámbito profesional que Node.js. Otro entorno de ejecución es Bun, creado en 2021 por el programador ruso Jarred Sumner. Al igual que Deno, Bun busca proporcionar un entorno de ejecución más eficiente para JavaScript en el servidor.
+
+Para entender mejor, podemos comparar con el lado del cliente: frameworks y bibliotecas como React, Vue, Svelte, y Angular compiten entre sí en el desarrollo web en el navegador. En cambio, los entornos de ejecución como Node.js, Deno, y Bun permiten ejecutar JavaScript en el servidor.
+
+Entonces, en resumen, JavaScript es el lenguaje, los entornos de ejecución son Node.js, Deno y Bun, y los frameworks que construimos sobre estos entornos (como Express en Node.js) facilitan el desarrollo web.
+
+Con esto claro, en el curso profundizaremos en Node.js, sus características y ventajas. Aprenderás a diferenciar entre un framework, una librería y un entorno de ejecución, entendiendo cómo Node.js lleva JavaScript del navegador al servidor. ¡Nos vemos en la próxima sección!
+✅
+
+[Indice](#curso-de-nodejs-jonmircha)
+
+## 3. Historia y contexto (0:14:00)
+Después de haber explicado qué es Node.js, y la diferencia entre un entorno de ejecución y un framework, ahora quiero hablarles sobre la historia de Node.js. Comencemos por el 2009, cuando en la conferencia JSConf en Berlín, Ryan Dahl presentó su idea. Dahl trabajaba en una empresa de infraestructura en la nube, y en esos años, hablar de servicios en la nube era algo nuevo, aún emergente, a diferencia de la familiaridad que tenemos hoy con plataformas como Azure, AWS o Google Cloud.
+
+La innovación de Dahl consistió en tomar el motor V8 de JavaScript, usado por el navegador Chrome para ejecutar JavaScript de forma rápida, y adaptarlo para el lado del servidor. Esto incluyó el desarrollo de una capa de red basada en la entrada y salida de datos asincrónica, la cual llamó Node.js. Internamente, el motor de Node.js está compuesto aproximadamente en un 80% por código C++ y el resto en JavaScript. Node.js se lanzó oficialmente en 2009, y su enfoque en un modelo no bloqueante y asincrónico revolucionó el desarrollo de aplicaciones en tiempo real como chats y notificaciones, algo que en ese entonces no era común.
+
+Con Node.js también llegó npm (Node Package Manager), un gestor de paquetes que permitió a los desarrolladores compartir y utilizar librerías de manera sencilla. Gracias a su popularidad, grandes empresas como LinkedIn, PayPal, Netflix y Walmart comenzaron a integrar Node.js en algunas de sus aplicaciones y servicios.
+
+El desarrollo de Node.js fue inicialmente lento. Dahl tardó dos o tres años en avanzar de la versión 0 a la versión 1, ya que tenía compromisos laborales y no podía dedicar todo su tiempo a Node.js. Durante este periodo, la comunidad comenzó a colaborar, creando un fork llamado io.js. Esta bifurcación añadió nuevas características y aceleró el desarrollo.
+
+En el 2015, se logró la fusión de io.js y Node.js con el apoyo de la Fundación Linux, formando la Node.js Foundation. Esta unión consolidó el proyecto y permitió un desarrollo más ágil, eliminando barreras comerciales que limitaban el crecimiento de Node.js. El 2015 fue un año clave para JavaScript, ya que no solo Node.js se estabilizó, sino que también se publicó el estándar ECMAScript 2015 (ES6), introduciendo mejoras significativas en el lenguaje. Esto estableció un compromiso de actualización anual para JavaScript.
+
+A partir de ese año, JavaScript y Node.js se volvieron opciones sólidas para el desarrollo de aplicaciones isomórficas, aquellas que pueden ejecutarse tanto en el cliente como en el servidor usando el mismo lenguaje. Esto marcó el inicio del auge de stacks como MEAN (MongoDB, Express, Angular, Node.js) y MERN (MongoDB, Express, React, Node.js), abriendo las puertas a un nuevo nivel de desarrollo multiplataforma con JavaScript.
+
+En conclusión, la historia de Node.js es una pieza fundamental del crecimiento de JavaScript en el desarrollo moderno. En la siguiente sección, exploraremos cómo Node.js influye en las tres áreas clave de una aplicación: frontend, backend y bases de datos.
+
+✅
+
+[Indice](#curso-de-nodejs-jonmircha)
+
+## 4. Características y usos (0:29:58)
+
+Node.js y su Importancia en el Desarrollo Web
+Node.js fue creado por Ryan Dahl con el objetivo de permitir la ejecución de JavaScript en el servidor, utilizando un sistema de entrada/salida no bloqueante y basado en eventos. Esto permite que Node.js maneje múltiples solicitudes concurrentes de manera eficiente y escalable, lo cual es ideal para aplicaciones en tiempo real y de alto rendimiento. La primera versión de Node.js se construyó sobre el motor V8 de Chrome, con aproximadamente 8,000 líneas de código en C y C++ y 2,000 en JavaScript.
+
+Características Principales de Node.js
+1. Uso de JavaScript en el Servidor: Node.js facilita el desarrollo de aplicaciones isomórficas, donde se utiliza el mismo lenguaje en el cliente y en el servidor. Esto permite una coherencia en la tecnología, evitando la necesidad de múltiples lenguajes en diferentes capas (como PHP en el backend y JavaScript en el frontend).
+2. Modelo No Bloqueante y Asíncrono: Node.js usa un modelo de entrada/salida sin bloqueo basado en eventos, lo cual permite que las aplicaciones manejen múltiples solicitudes sin que unas bloqueen a otras. Esto es crucial para crear aplicaciones escalables y eficientes.
+3. Escalabilidad y Velocidad: Gracias a su arquitectura no bloqueante, Node.js es ideal para aplicaciones en tiempo real que requieren un alto rendimiento y escalabilidad, incluyendo la posibilidad de arquitectura basada en microservicios.
+4. Comunidad Activa y Ecosistema Amplio: La comunidad de Node.js es una de las más activas y ha contribuido extensamente al crecimiento de su ecosistema. A pesar de una breve pausa en su desarrollo, la comunidad se unió para crear una versión bifurcada (fork) que permitió la continuidad del proyecto. 
+5. Facilidad para Manejo de Solicitudes HTTP: Node.js incluye un módulo HTTP que permite crear servidores web rápidamente y manejar solicitudes y respuestas. Esto facilita el desarrollo de APIs RESTful y la integración con arquitecturas MVC.
+6. Compatibilidad Multiplataforma: Node.js se puede instalar en sistemas operativos Windows, macOS y Linux, lo que lo hace accesible y versátil para desarrolladores en distintas plataformas.
+
+Integración con Bases de Datos
+Node.js ha impulsado el uso de bases de datos NoSQL, especialmente aquellas que utilizan estructuras de datos de estilo JavaScript, como MongoDB. Gracias a su estructura de objetos en JavaScript, es fácil integrarlo tanto con bases de datos NoSQL como relacionales (MySQL, PostgreSQL, MariaDB), y su sintaxis sencilla facilita el desarrollo de APIs que exponen datos en formato JSON, un formato muy compatible con la mayoría de los clientes.
+
+Uso en el Frontend
+En el frontend, Node.js es fundamental en el ecosistema moderno, especialmente con la aparición de frameworks y librerías como React, Angular y Vue. Estos frameworks requieren entornos de desarrollo locales que se ejecutan en Node.js y que facilitan tareas como la gestión de dependencias y la construcción de aplicaciones. NPM, el gestor de paquetes de Node.js, permite instalar y ejecutar rápidamente bibliotecas y frameworks en proyectos frontend.
+
+Middleware y Procesamiento en Tiempo Real
+
+Node.js también se utiliza como middleware, actuando como un intermediario entre el modelo de datos y el desarrollo frontend. Esto es útil para validaciones y transformaciones de datos antes de pasarlos a la base de datos o al frontend. En cuanto al procesamiento en tiempo real, Node.js es excelente para manejar comunicaciones bidireccionales gracias a librerías como Socket.io, que permiten la creación de canales de comunicación en tiempo real entre cliente y servidor.
+
+Testing y Desarrollo de Pruebas
+
+Node.js también soporta una gran variedad de entornos de pruebas, como Jest, Mocha y Chai, que facilitan el desarrollo de pruebas unitarias y de integración, esenciales para garantizar la calidad y estabilidad de las aplicaciones.
+
+✅
+
+[Indice](#curso-de-nodejs-jonmircha)
+
+## 5. Instalación y Configuración (0:54:50)
+Para instalar Node.js, tienes varias opciones según el sistema operativo: Windows, Mac o el código fuente para Linux. Sin embargo, la instalación básica que encuentras en la página oficial de descargas de Node.js no es la más recomendada. Esto se debe a que la versión que instalarías de esta forma es una "Stand Alone" o "independiente". Es decir, solo tendrás instalada una versión específica de Node.js en tu sistema. Por ejemplo, si instalas la versión 18.17.0, y luego necesitas actualizar a la versión 20.5, tendrás que realizar el proceso de instalación nuevamente, lo cual no es muy práctico.
+
+Es importante poder manejar varias versiones de Node.js en tu computadora, especialmente si trabajas en proyectos diferentes que requieren versiones distintas. Imagínate que desarrollas una aplicación hoy con la versión 18, pero en uno o dos años necesitas actualizar o realizar cambios en la misma aplicación. Si solo tienes instalada la última versión de Node.js, es posible que enfrentes problemas de compatibilidad con el código o las dependencias más antiguas.
+
+Para resolver este inconveniente, la comunidad de Node.js desarrolló una herramienta llamada NVM (Node Version Manager). Con NVM, puedes instalar y gestionar múltiples versiones de Node.js en tu equipo. Esto es ideal para desarrolladores que trabajan en varios proyectos con requisitos de versión específicos.
+
+### Instalación de NVM
+En Windows, las instalaciones suelen tener algunas diferencias, por lo que existen dos repositorios en GitHub que te serán útiles. El primer repositorio, NVM, está pensado originalmente para sistemas Mac y Linux. Si revisas el repositorio de NVM, verás que las instrucciones para instalarlo incluyen comandos para terminal como curl o wget, que son más comunes en esos sistemas.
+
+Como respuesta a la necesidad de los usuarios de Windows, surgió el proyecto NVM for Windows. Este proyecto es un fork de NVM que permite a los usuarios de Windows instalar y cambiar versiones de Node.js con facilidad. Solo necesitas descargar el instalador desde el repositorio, ejecutarlo, y podrás instalar y gestionar versiones de Node.js cómodamente en tu sistema Windows.
+
+Una vez instalado NVM, podrás cambiar entre diferentes versiones de Node.js con el comando:
+
+```bash
+nvm use [versión]
+```
+
+Esto es especialmente útil si eres un desarrollador que trabaja en proyectos a largo plazo. Solo necesitas recordar la versión de Node.js con la que trabajabas en cada proyecto, y puedes alternar entre ellas sin preocuparte por problemas de compatibilidad.
+
+### Diferencias entre las versiones actual y LTS
+Cuando instalas Node.js, tienes dos opciones de versión: la versión actual y la versión LTS. "LTS" significa "Long-Term Support" (Soporte a Largo Plazo), un término común en el desarrollo de software que implica que dicha versión recibirá actualizaciones de seguridad y mantenimiento durante un periodo prolongado (generalmente, tres años en Node.js).
+
+La versión actual, en cambio, es la versión más reciente y contiene las últimas características, pero puede tener actualizaciones frecuentes. Si desarrollas una aplicación para producción, es recomendable optar por una versión LTS para asegurar estabilidad a largo plazo, ya que las versiones LTS pasan por un riguroso mantenimiento y pruebas antes de ser publicadas.
+
+En resumen:
+
+* Versión Actual: Incluye las últimas funcionalidades, ideal para explorar nuevas características.
+* Versión LTS: Recomendable para aplicaciones en producción, ya que garantiza estabilidad y soporte.
+
+Con esta configuración, podrás experimentar nuevas características y mantener tus proyectos estables sin problemas de compatibilidad.
+✅
+
+[Indice](#curso-de-nodejs-jonmircha)
 
 ## 9. Hola mundo (1:35:10)
 `curso-node-jonmircha` > `00_HolaMundo` > `app.js`
