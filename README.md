@@ -6,6 +6,9 @@ Indice
 * [3. Historia y contexto](#3-historia-y-contexto-01400)
 * [4. Características y usos ](#4-características-y-usos-02958)
 * [5. Instalación y Configuración](#5-instalación-y-configuración-05450)
+* [6. Node Version Manager (NVM) ](#6-node-version-manager-nvm-10806)
+* [7. Versión por default en NVM](#7-versión-por-default-en-nvm-12525)
+* [8. REPL](#8-repl-13112)
 * [9. Hola Mundo](#9-hola-mundo-13510)
 * [10. JS del navegador VS JS del servidor](#10-js-del-navegador-vs-js-del-servidor-13953)
 * [11. Blocking VS Non Blocking](#11-blocking-vs-non-blocking-14748)
@@ -122,6 +125,67 @@ En resumen:
 * Versión LTS: Recomendable para aplicaciones en producción, ya que garantiza estabilidad y soporte.
 
 Con esta configuración, podrás experimentar nuevas características y mantener tus proyectos estables sin problemas de compatibilidad.
+✅
+
+[Indice](#curso-de-nodejs-jonmircha)
+
+## 6. Node Version Manager (NVM) (1:08:06)
+Antes de pasar a mostrar cómo se utiliza Node.js con NVM, quiero hacer un paréntesis importante. A veces, algunos usuarios experimentan problemas al instalar NVM en Windows, lo cual puede depender de la versión de Windows, el tipo de sistema, o alguna característica del equipo. A diferencia de sistemas como macOS, que tiene una arquitectura única, Windows cuenta con diversas configuraciones de hardware y software que pueden afectar la instalación.
+
+En el repositorio oficial de NVM, que es compatible solo con Linux y macOS, puedes encontrar una sección titulada "Notas importantes" que menciona que NVM no está disponible para Windows. Sin embargo, existen versiones alternativas de NVM para Windows, como NVM-For-Windows, que he incluido en la descripción. Si esta opción no funciona, en el repositorio oficial también se recomiendan otros gestores de versiones para Node.js en Windows, como Nodist o nvs, que nacieron precisamente para suplir esta necesidad.
+
+```bash
+nvm -v
+
+nvm list
+
+node -v
+
+nvm use v18.13.0
+
+npm -v
+
+nvm install v18.17.0
+
+nvm uninstall v18.7.0
+```
+
+✅
+
+[Indice](#curso-de-nodejs-jonmircha)
+
+## 7. Versión por default en NVM (1:25:25)
+
+Creamos una carpeta General `curso-node-jonmircha`
+
+Un detalle importante: es probable que cuando cerraste el proceso de nvm, hayas notado que la versión que tienes por defecto se mantiene activa. En la sección anterior, dejamos configurada la versión 18.17.0 (la última LTS disponible al momento de grabar este video). Si ahora ejecuto `node -v`, verás que la versión actual es la 16.17.0, ya que es la primera versión que instalé en este equipo.
+
+Recuerda que cuando expliqué cómo usar `nvm`, configuramos esta versión como predeterminada, algo que puedes identificar gracias a la flecha que la indica. Aquí tienes un consejo: si deseas que otra versión sea la predeterminada, puedes establecerlo fácilmente. Por ejemplo, para cambiar a la versión 18.17.0, solo necesitas ejecutar `nvm use 18.17.0`. Después de esto, si ejecuto `node -v`, verás que ahora me muestra esta versión.
+
+Sin embargo, al cerrar y volver a abrir la terminal, regresará automáticamente a la versión predeterminada, que en este caso es la 16.17.0. Esto puede ser incómodo si deseas trabajar constantemente con una versión en particular. Si buscas ayuda sobre los comandos de `nvm`, solo necesitas escribir `nvm` y presionar Enter para ver la lista completa.
+
+En `nvm`, existen dos maneras de establecer una versión por defecto:
+
+1. Usar el comando `nvm alias default node`, que establecerá automáticamente la última versión disponible en tu equipo como la predeterminada.
+2. Para designar una versión específica como la predeterminada (como la versión LTS 18.17.0), usa `nvm alias default 18.17.0`.
+
+Por ejemplo, si ejecutas `nvm alias default node`, y la última versión en tu equipo es la 20, esta será la predeterminada. Si prefieres la versión 18.17.0, simplemente ejecuta `nvm alias default 18.17.0`. Luego de establecer esta versión, al abrir una nueva terminal y ejecutar `node -v`, verás que la versión por defecto será la 18.17.0 en lugar de la última versión instalada.
+
+Así es como puedes asignar una versión específica o la última disponible como predeterminada en `nvm`.
+
+[Indice](#curso-de-nodejs-jonmircha)
+
+## 8. REPL (1:31:12)
+Casi todos los lenguajes de programación tienen su propio REPL (Read-Eval-Print Loop), que en español significa ciclo de leer, evaluar e imprimir. Esta herramienta interactiva permite a los desarrolladores ejecutar y probar código en el lenguaje en el que estén trabajando. Por ejemplo, Python y PHP tienen sus propios REPLs, y Node.js también cuenta con uno.
+
+Para acceder al REPL de Node.js, simplemente escribe `node` en la terminal. Verás un mensaje de bienvenida que indica la versión de Node.js que estás usando (por ejemplo, 18.17.0) y muestra un aviso para obtener ayuda adicional escribiendo `.help`. Al escribir `.help`, verás una lista de comandos útiles que puedes ejecutar dentro del REPL.
+
+El REPL de Node.js funciona de manera similar a la consola de desarrollador de los navegadores en JavaScript. Por ejemplo, en el navegador, si haces clic derecho, seleccionas "Inspeccionar" y abres la consola, puedes empezar a ejecutar código de JavaScript directamente.
+
+Al igual que en la consola de navegador, el REPL te permite probar y verificar rápidamente tu código. Esto es especialmente útil para realizar pruebas rápidas o verificar el comportamiento de ciertas funciones.
+
+Para salir del REPL, puedes usar varios métodos. La opción más común es presionar `Ctrl + C` dos veces, pero también puedes usar `Ctrl + D` o el comando `.exit`. Estos comandos se muestran en la ayuda que proporciona el REPL. También existe el comando `.save`, que permite guardar la sesión, aunque para proyectos más avanzados es recomendable trabajar directamente en archivos de código.
+
 ✅
 
 [Indice](#curso-de-nodejs-jonmircha)
