@@ -15,6 +15,9 @@ Indice
 * [12. Single Thread](#12-single-thread-20704)
 * [13. Event Loop](#13-event-loop-21841)
 * [14. Módulos](#14-módulos-23202)
+* [15. CommonJS ](#15-commonjs-24252)
+* [16. ES Modules](#16-es-modules-25131)
+* [17. NPM](#17-npm-25841)
 
 ## 1. Bienvenida al curso (0:00:00)
 
@@ -205,33 +208,25 @@ Ejecutamos en la terminal `pwd` para saber la ubicación de la carpeta, luego ca
 
 ## 10. JS del navegador VS JS del servidor (1:39:53)
 
-JavaScript en el Navegador vs JavaScript en el Servidor (Node.js)
+Cuando hablamos de cómo escribir código en Node.js, gran parte de la sintaxis básica de JavaScript en el navegador se mantiene. Puedes declarar variables, constantes, funciones, usar condicionales, operadores, ciclos y hasta manejar asincronía. Todo lo que sueles hacer en JavaScript en un navegador es posible también en Node.js. Sin embargo, hay ciertas limitaciones y diferencias importantes, como la imposibilidad de interactuar con el DOM, la API del navegador que permite manipular el contenido HTML y CSS.
 
-JavaScript del navegador y JavaScript del servidor comparten el mismo lenguaje, pero se utilizan en contextos y entornos diferentes, lo que les da características y capacidades distintas.
+Por ejemplo, en la consola de un navegador, si escribes `window`, obtendrás el objeto global `window`, que representa la ventana del navegador. Similarmente, `document` se refiere al nodo DOM, mostrando la estructura del `document`o HTML. En cambio, si intentas usar `document` o `window` en el entorno de Node.js (por ejemplo, en la consola interactiva REPL de Node), recibirás un "ReferenceError", ya que estos objetos no existen fuera del navegador.
 
-### JavaScript en el Navegador
-Este es el JavaScript que se ejecuta en el cliente, dentro del navegador web. Su propósito principal es interactuar con el documento HTML (a través del DOM), responder a eventos del usuario y manipular la interfaz de usuario.
+En Node.js, sin embargo, tenemos otros objetos específicos del entorno del servidor, como `process`, que proporciona información sobre el proceso actual de Node, y `global`, que es el equivalente al objeto `window` en el navegador. Así que mientras el objeto `window` es `global` en el navegador, en Node.js el objeto global es `global`, y contiene todos los datos relacionados con el entorno de Node.
 
-- **Acceso al DOM**: JavaScript en el navegador puede acceder y manipular el DOM, que es la representación estructural de la página web.
-- **Eventos del Usuario**: Responde a eventos como clics, desplazamientos, entradas de teclado, etc.
-- **Seguridad**: Está limitado por razones de seguridad (sandboxing), es decir, no puede acceder a archivos locales ni realizar operaciones críticas en el sistema.
-- **Objeto Global**: El objeto global es `window`, que representa la ventana del navegador y tiene propiedades y métodos como `alert()`, `setTimeout()`, etc.
+Bloqueante vs. No Bloqueante en Node.js
+Para comprender cómo maneja Node.js las operaciones de entrada y salida (I/O), es esencial conocer los conceptos de "bloqueante" y "no bloqueante". Una operación de I/O puede incluir la lectura y escritura de archivos, solicitudes HTTP, conexiones de red, consultas a bases de datos, o cualquier acción que requiera esperar una respuesta.
 
-### JavaScript en el Servidor (Node.js)
-Este es el JavaScript que se ejecuta en el servidor, fuera del navegador. Su propósito es manejar solicitudes HTTP, interactuar con bases de datos, leer y escribir archivos, entre otras tareas de backend.
+En modo bloqueante (síncrono), cada tarea debe completarse antes de pasar a la siguiente. Por ejemplo, si tienes una lista de operaciones, Node.js procesará una por una hasta terminar la actual. Esto puede resultar en una ejecución lenta si una tarea es intensiva o requiere esperar una respuesta externa.
 
-- **Acceso al Sistema de Archivos**: Node.js puede leer y escribir archivos, acceder al sistema operativo y realizar tareas de backend que no son posibles en el navegador.
-- **Manejo de Servidores**: Node.js permite crear servidores web y manejar solicitudes HTTP directamente.
-- **Módulos y Librerías**: Usa el sistema de módulos de Node.js (`require()`) para organizar y reutilizar código, y tiene acceso a un amplio ecosistema de librerías a través de `npm`.
-- **Objeto Global**: El objeto global es `global`, y contiene elementos como `process` (para interactuar con el proceso de ejecución) y módulos del sistema como `fs` (sistema de archivos).
+En modo no bloqueante (asíncrono), Node.js puede iniciar una operación y continuar con otras tareas sin esperar a que termine la primera. Esta arquitectura es altamente eficiente y permite un alto rendimiento en aplicaciones con múltiples operaciones de entrada y salida. Si una operación requiere esperar, esa espera se coloca en "segundo plano" y Node.js continúa ejecutando las siguientes tareas.
 
-### Diferencias Clave
+Ejemplo en el Mundo Real: El Restaurante
+Imagina un restaurante donde los comensales representan el código bloqueante, y los meseros y cocineros representan el código no bloqueante. Un comensal, al ser bloqueante, espera a terminar cada plato antes de recibir el siguiente. Primero recibe la entrada, luego la sopa, después el plato fuerte, y así sucesivamente. Este es un proceso secuencial, como el código bloqueante en programación.
 
-1. **Acceso al Entorno**: En el navegador, el acceso está limitado al DOM y a eventos del usuario, mientras que en el servidor puedes interactuar con archivos, bases de datos y el sistema operativo.
-2. **Objeto Global**: En el navegador es `window`, y en Node.js es `global`.
-3. **Uso**: JavaScript del navegador se usa para la interacción de la interfaz de usuario, mientras que en el servidor se usa para manejar la lógica de backend, como gestionar solicitudes y responder con datos.
+Por otro lado, los meseros y cocineros trabajan de forma no bloqueante. El mesero lleva la carta a una mesa, luego entrega el postre a otra y trae la bebida a una tercera. No espera a que los comensales terminen un plato para pasar al siguiente. Similarmente, en Node.js, una operación puede iniciarse y, mientras espera por su finalización (como recibir una respuesta de una API), el sistema puede ejecutar otras operaciones.
 
-Ambos entornos aprovechan las fortalezas de JavaScript, pero están diseñados para cumplir roles diferentes.
+Este modelo de procesamiento no bloqueante es clave para el alto rendimiento de Node.js y permite que funcione de manera eficiente incluso en entornos con múltiples operaciones I/O.
 
 [Indice](#curso-de-nodejs-jonmircha)
 
@@ -388,6 +383,24 @@ fs.readFile("archivo.txt", "utf-8", (err, data) => {
 
 console.log(data);
 ```
+
+Antes de profundizar en el event loop, observa que hay una biblioteca llamada libuv. Esta es una librería escrita en C, desarrollada por el equipo de Joyent, la empresa donde trabajaba Ryan Dahl, el creador de Node.js. Libuv provee abstracciones para manejar operaciones de entrada y salida de forma asíncrona, siendo responsable del 80% del código de Node.js, el cual está escrito en C (el otro 20% es JavaScript). Esta biblioteca es esencial para que Node.js maneje las peticiones asíncronas.
+
+Desglose del Event Loop en el GIF
+En la primera imagen del GIF, verás el código que estamos ejecutando y la estructura del motor V8 de JavaScript en Chrome (el mismo en el que se basa Node.js). En el lado izquierdo, tenemos la pila de llamadas (call stack), que es donde se ejecutan las funciones. A la derecha, está la API de libuv, que permite manejar las tareas asíncronas, y abajo se encuentra la cola de eventos (event queue), donde se almacenan las tareas pendientes para su ejecución cuando el call stack esté libre.
+
+Explicación del Código Paso a Paso
+1. Primero, almacenamos el módulo fs en una variable. Al ejecutarse la línea require('fs'), se carga el módulo en memoria y se guarda en la pila de llamadas. Esta es una tarea síncrona, por lo que se carga y luego se libera la pila.
+
+2. Luego, imprimimos "Inicio del programa" en la consola con console.log, que también es una operación síncrona. Esto se ejecuta de inmediato y muestra el mensaje en consola.
+
+3. A continuación, pasamos a la lectura de un archivo con fs.readFile. A diferencia de fs.readFileSync (que es síncrona), esta función es asíncrona. Esto significa que la llamada no se detiene hasta que se lea todo el archivo, sino que el callback (función de retorno) se gestiona en segundo plano por la API de libuv y el call stack queda libre para seguir ejecutando las siguientes tareas.
+
+4. Después, se ejecuta otro console.log para imprimir "Fin del programa" en la consola. Dado que la lectura del archivo es asíncrona y se gestiona por separado, este console.log se ejecuta inmediatamente y aparece antes de que se complete la lectura del archivo.
+
+5. Una vez que libuv ha completado la lectura del archivo, el callback asociado pasa a la cola de eventos (event queue). Aquí, el event loop evalúa si la pila de llamadas está vacía. Si es así, toma el callback de la cola de eventos y lo ejecuta, imprimiendo finalmente el contenido del archivo en la consola.
+
+
 ## 14. Módulos (2:32:02)
 Los módulos son fundamentales porque permiten aprovechar al máximo el desarrollo de aplicaciones en Node.js. Node.js trabaja de manera modular, ¿y qué es un módulo? Un módulo es un bloque de código reutilizable y encapsulado que facilita organizar y dividir las funcionalidades de nuestra aplicación en archivos o unidades más pequeñas y manejables. En lugar de tener todo el código de nuestra aplicación en un solo archivo de 10,000 líneas, lo dividimos en múltiples archivos más pequeños, lo que facilita el mantenimiento y la resolución de problemas. Si encontramos un error, en lugar de revisar un archivo enorme, simplemente identificamos el módulo que lo está causando y analizamos ese fragmento específico de código. Programar en Node.js es como jugar con piezas de Lego: interconectamos módulos individuales para construir aplicaciones más grandes y complejas.
 
@@ -415,4 +428,169 @@ readFile("./archivo.txt", "utf-8", (err, data) => {
 console.log("Fin del programa");
 ```
 
+[Indice](#curso-de-nodejs-jonmircha)
+
+
+## 15. CommonJS (2:42:52)
+
+creamos dentro de la carpeta `02_Modulos` > `CommonJS` > `app.js` + `calculadora.js` ^ `ESModules`
+
+```
+└── 02_Modulos
+    ├── CommonJS
+    │   ├── app.js
+    │   └── calculadora.js
+    └── ESModules
+```
+
+En calculadora.js vamos a crear cuatro funciones para realizar operaciones aritméticas básicas: sumar, restar, multiplicar y dividir, además de obtener el módulo (o residuo). Recuerda que el módulo es la quinta operación aritmética más importante, además de las cuatro tradicionales.
+
+Para simplificar la escritura, utilizaremos funciones flecha (arrow functions). No validaremos el tipo de datos; simplemente definiremos que las funciones reciben dos parámetros, a y b.
+
+Luego, crearemos un objeto llamado calculadora, donde asignaremos estas funciones como métodos: sumar, restar, multiplicar, dividir y modulo. Gracias a las características modernas de JavaScript, podemos simplificar la escritura cuando las claves del objeto son idénticas a los nombres de las funciones.
+
+Para exportar este módulo en CommonJS, usaremos module.exports. Simplemente asignamos calculadora a module.exports, lo que permitirá que calculadora esté disponible en otros archivos. En app.js, el archivo principal, importaremos el módulo con require.
+`calculadora.js`
+
+```js
+const sumar = (a, b) => a + b,
+  restar = (a, b) => a - b,
+  multiplicar = (a, b) => a * b,
+  dividir = (a, b) => a / b,
+  modulo = (a, b) => a % b,
+  calculadora = {
+    sumar,
+    restar,
+    multiplicar,
+    dividir,
+    modulo,
+  };
+
+module.exports = calculadora;
+```
+### Código en app.js
+
+Crearemos una constante calculadora y la inicializaremos con el resultado de require, indicando la ruta al archivo calculadora.js. Dado que calculadora.js está en la misma carpeta, basta con poner ./calculadora.
+
+Definimos una variable c que simplifica el uso de console.log. Así, en lugar de escribir console.log cada vez, simplemente usaremos c para imprimir los resultados.
+`app.js`
+
+```js
+const calculadora = require("./calculadora"),
+  c = console.log;
+
+c(calculadora.sumar(2, 4));
+c(calculadora.restar(2, 4));
+c(calculadora.multiplicar(2, 4));
+c(calculadora.dividir(4, 2));
+c(calculadora.modulo(4, 2));
+```
+
+Si ejecutamos en la terminal `node app.js` nos mostrará en la terminal:
+
+```bash
+6
+-2
+8
+2
+0
+```
+[Indice](#curso-de-nodejs-jonmircha)
+
+## 16. ES Modules (2:51:31)
+
+creamos dentro de la carpeta `02_Modulos` > `ESModules` > `app.js` + `calculadora.js`
+
+```
+└── 02_Modulos
+    ├── CommonJS
+    │   ├── app.js
+    │   └── calculadora.js
+    └── ESModules
+        ├── app.js
+        └── calculadora.js
+```
+
+`calculadora.js`
+
+```js
+const sumar = (a, b) => a + b,
+  restar = (a, b) => a - b,
+  multiplicar = (a, b) => a * b,
+  dividir = (a, b) => a / b,
+  modulo = (a, b) => a % b;
+
+export const calculadora = {
+  sumar,
+  restar,
+  multiplicar,
+  dividir,
+  modulo,
+};
+```
+
+`app.js`
+
+```js
+import { calculadora } from "./calculadora.mjs";
+const c = console.log;
+
+c(calculadora.sumar(2, 4));
+c(calculadora.restar(2, 4));
+c(calculadora.multiplicar(2, 4));
+c(calculadora.dividir(4, 2));
+c(calculadora.modulo(4, 2));
+```
+
+Si ejecutamos en la terminal `node app.js` nos mostrará en la terminal un error:
+
+```bash
+Warning: To load an ES module, set "type": "module" in the package.json or use the .mjs extension.
+
+SyntaxError: Cannot use import statement outside a module
+```
+Este mensaje de advertencia aparece en Node.js cuando intentas cargar un módulo ES (ECMAScript Module, como el que usa `import/export` en lugar de `require()`) sin configurar correctamente el entorno para manejar este tipo de módulos.
+### ¿Por qué sucede?
+Por defecto, Node.js asume que estás usando el formato de módulos CommonJS (que usa `require()` para importar módulos). Si deseas usar ES Modules (que utilizan `import` y `export`), debes indicarle a Node.js que debe tratarlos de esa manera.
+### ¿Cómo solucionar el problema?
+Tienes dos opciones para hacerlo:
+
+Opción 1: Configurar `package.json`
+
+Puedes agregar `"type": "module"` en tu archivo package.json. Esto le dice a Node.js que todo el proyecto debe ser tratado como un proyecto de ES Modules.
+
+Opción 2: Usar la extensión .mjs
+Si no quieres cambiar el package.json, otra opción es cambiar la extensión de los archivos que usan módulos ES a .mjs (en lugar de .js).
+
+Ejemplo: Si tienes un archivo index.js, renómbralo a index.mjs, y Node.js sabrá que debe tratarlo como un módulo ES. Esto funciona aunque no hayas configurado el package.json.
+
+Renombramos nuestro archivo `calculadora.js` a `calculadora.mjs` y tambien lo hacemos en `app.js` a `app.mjs`
+
+volvemos a ejecutar `node app.js`
+
+Si ejecutamos en la terminal `node app.js` nos mostrará en la terminal:
+
+```bash
+6
+-2
+8
+2
+0
+```
+[Indice](#curso-de-nodejs-jonmircha)
+
+## 17. NPM (2:58:41)
+
+Creamos una carpeta `03_NPM`
+NPM, el Node Package Manager (administrador de paquetes de Node.js). Como mencioné al inicio del curso, NPM es el administrador de paquetes predeterminado para Node.js. ¿Por qué es predeterminado? Porque se incluye automáticamente al instalar Node.js. Aunque existen otros administradores de paquetes, NPM es el oficial y es el más ampliamente utilizado en la comunidad de Node.js.
+
+¿Para qué sirve NPM? Como recordarán, cuando expliqué los módulos, mencioné que existen módulos "core" (nativos), es decir, aquellos incluidos en la instalación de Node.js, y también los módulos personalizados. Estos últimos pueden ser módulos que creamos nosotros mismos, como el de la calculadora que vimos anteriormente, o módulos creados por la comunidad y disponibles para su uso a través de NPM.
+
+En el desarrollo profesional con Node.js, es muy común apoyarse en estos módulos para cubrir diversas necesidades de la aplicación. Aquí es donde NPM se convierte en un recurso esencial, ya que actúa como una gran comunidad de código abierto en la que cualquier persona, incluida tú, puede crear una cuenta, publicar un paquete y compartirlo con otros usuarios. De este modo, NPM permite compartir y reutilizar código de manera efectiva.
+```
+└── 00_HolaMundo
+└── 01_CicloEventos
+└── 02_Modulos
+└── 03_NPM
+```
 [Indice](#curso-de-nodejs-jonmircha)
