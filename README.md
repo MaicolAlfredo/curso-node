@@ -17,7 +17,7 @@ Indice
 * [14. Módulos](#14-módulos-23202)
 * [15. CommonJS ](#15-commonjs-24252)
 * [16. ES Modules](#16-es-modules-25131)
-* [17. NPM](#17-npm-2584)
+* [17. NPM](#17-npm-25841)
 
 ## 1. Bienvenida al curso (0:00:00)
 
@@ -590,5 +590,5 @@ En el desarrollo profesional con Node.js, es muy común apoyarse en estos módul
 └── 03_NPM
 ```
 [Indice](#curso-de-nodejs-jonmircha)
-=======
+
 
