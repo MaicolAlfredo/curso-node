@@ -17,7 +17,7 @@ Indice
 * [14. Módulos](#14-módulos-23202)
 * [15. CommonJS ](#15-commonjs-24252)
 * [16. ES Modules](#16-es-modules-25131)
-* [17. NPM](#17-npm-25841)
+* [17. NPM](#17-npm-2584)
 
 ## 1. Bienvenida al curso (0:00:00)
 
@@ -207,7 +207,6 @@ console.log(
 Ejecutamos en la terminal `pwd` para saber la ubicación de la carpeta, luego cambiamos a la carpeta `00_HolaMundo` con `cd 00_HolaMundo` y ejecutamos `node app.js`
 
 ## 10. JS del navegador VS JS del servidor (1:39:53)
-
 Cuando hablamos de cómo escribir código en Node.js, gran parte de la sintaxis básica de JavaScript en el navegador se mantiene. Puedes declarar variables, constantes, funciones, usar condicionales, operadores, ciclos y hasta manejar asincronía. Todo lo que sueles hacer en JavaScript en un navegador es posible también en Node.js. Sin embargo, hay ciertas limitaciones y diferencias importantes, como la imposibilidad de interactuar con el DOM, la API del navegador que permite manipular el contenido HTML y CSS.
 
 Por ejemplo, en la consola de un navegador, si escribes `window`, obtendrás el objeto global `window`, que representa la ventana del navegador. Similarmente, `document` se refiere al nodo DOM, mostrando la estructura del `document`o HTML. En cambio, si intentas usar `document` o `window` en el entorno de Node.js (por ejemplo, en la consola interactiva REPL de Node), recibirás un "ReferenceError", ya que estos objetos no existen fuera del navegador.
@@ -218,8 +217,6 @@ Bloqueante vs. No Bloqueante en Node.js
 Para comprender cómo maneja Node.js las operaciones de entrada y salida (I/O), es esencial conocer los conceptos de "bloqueante" y "no bloqueante". Una operación de I/O puede incluir la lectura y escritura de archivos, solicitudes HTTP, conexiones de red, consultas a bases de datos, o cualquier acción que requiera esperar una respuesta.
 
 En modo bloqueante (síncrono), cada tarea debe completarse antes de pasar a la siguiente. Por ejemplo, si tienes una lista de operaciones, Node.js procesará una por una hasta terminar la actual. Esto puede resultar en una ejecución lenta si una tarea es intensiva o requiere esperar una respuesta externa.
-
-En modo no bloqueante (asíncrono), Node.js puede iniciar una operación y continuar con otras tareas sin esperar a que termine la primera. Esta arquitectura es altamente eficiente y permite un alto rendimiento en aplicaciones con múltiples operaciones de entrada y salida. Si una operación requiere esperar, esa espera se coloca en "segundo plano" y Node.js continúa ejecutando las siguientes tareas.
 
 Ejemplo en el Mundo Real: El Restaurante
 Imagina un restaurante donde los comensales representan el código bloqueante, y los meseros y cocineros representan el código no bloqueante. Un comensal, al ser bloqueante, espera a terminar cada plato antes de recibir el siguiente. Primero recibe la entrada, luego la sopa, después el plato fuerte, y así sucesivamente. Este es un proceso secuencial, como el código bloqueante en programación.
@@ -429,6 +426,7 @@ console.log("Fin del programa");
 ```
 
 [Indice](#curso-de-nodejs-jonmircha)
+<<<<<<< HEAD
 
 
 ## 15. CommonJS (2:42:52)
@@ -594,3 +592,5 @@ En el desarrollo profesional con Node.js, es muy común apoyarse en estos módul
 └── 03_NPM
 ```
 [Indice](#curso-de-nodejs-jonmircha)
+=======
+>>>>>>> refs/remotes/origin/main
