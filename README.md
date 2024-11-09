@@ -426,8 +426,6 @@ console.log("Fin del programa");
 ```
 
 [Indice](#curso-de-nodejs-jonmircha)
-<<<<<<< HEAD
-
 
 ## 15. CommonJS (2:42:52)
 
@@ -593,4 +591,4 @@ En el desarrollo profesional con Node.js, es muy común apoyarse en estos módul
 ```
 [Indice](#curso-de-nodejs-jonmircha)
 =======
->>>>>>> refs/remotes/origin/main
+
