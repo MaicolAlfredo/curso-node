@@ -5,7 +5,7 @@ const urlString =
 
 const parsedURL = parse(urlString, true);
 
-console.log("Protocolo:",parsedURL.protocol)
-console.log("Hostname:",parsedURL.hostname)
-console.log("Pathname:", parsedURL.pathname)
+console.log("Protocolo:", parsedURL.protocol);
+console.log("Hostname:", parsedURL.hostname);
+console.log("Pathname:", parsedURL.pathname);
 console.log("Parámetros de consulta:", parsedURL.query);
